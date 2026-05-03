@@ -1,4 +1,3 @@
-# main/models.py
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
@@ -18,7 +17,11 @@ class Role(models.Model):
 
 class CustomUser(AbstractUser):
     role = models.ForeignKey(
-        Role, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Роль"
+        Role,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name="Роль",
     )
     phone = models.CharField(max_length=20, blank=True, verbose_name="Телефон")
 
@@ -66,7 +69,11 @@ class Material(models.Model):
 
 
 class GalleryImage(models.Model):
-    title = models.CharField(max_length=100, verbose_name="Название", blank=True)
+    title = models.CharField(
+        max_length=100,
+        verbose_name="Название",
+        blank=True,
+    )
     image = models.ImageField(upload_to="gallery/", verbose_name="Фото")
     uploaded_at = models.DateTimeField(auto_now_add=True)
 

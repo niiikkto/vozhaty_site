@@ -1,4 +1,3 @@
-# main/admin.py
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .models import Role, CustomUser, Material, GalleryImage
@@ -8,7 +7,14 @@ admin.site.register(Role)
 
 @admin.register(CustomUser)
 class CustomUserAdmin(UserAdmin):
-    list_display = ("username", "email", "first_name", "last_name", "role", "is_staff")
+    list_display = (
+        "username",
+        "email",
+        "first_name",
+        "last_name",
+        "role",
+        "is_staff",
+    )
 
 
 @admin.register(Material)

@@ -1,10 +1,9 @@
-# vozhaty_site/settings.py
-
+import os
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = "django-insecure-change-this-in-production!!!"
+SECRET_KEY = os.getenv("SECRET_KEY", "django-insecure-change-this-in-production!!!")
 
 DEBUG = True
 
@@ -57,12 +56,12 @@ DATABASES = {
     }
 }
 
-# ====================== MEDIA ======================
-
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
+STATIC_URL = "/static/"
+STATICFILES_DIRS = [BASE_DIR / "static"]
 
-# ====================== Custom User ======================
+
 AUTH_USER_MODEL = "main.CustomUser"
 
 LANGUAGE_CODE = "ru-ru"
