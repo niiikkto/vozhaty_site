@@ -1,0 +1,50 @@
+# Django
+*.log
+*.pot
+*.pyc
+__pycache__/
+*.py[0-9]*
+*.egg-info/
+.mypy_cache/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# База данных
+*.sqlite3
+*.db
+db.sqlite3
+vozhaty_db.sqlite3
+
+# Медиа и статические файлы (кроме тех, что в git)
+media/
+staticfiles/
+
+# Окружение
+.env
+.venv
+venv/
+ENV/
+
+# IDE и редакторы
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Логи
+logs/
+*.log
+
+# Python
+*.pyc
+*.pyo
+*.pyd
+.Python
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Django migrations (иногда оставляют, но чаще игнорируют кэш)
+migrations/__pycache__/

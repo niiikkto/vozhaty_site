@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вожатка — портал для вожатых</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+
+<!-- Вставь этот скрипт ПЕРЕД закрывающим тегом </body> -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const buttons = document.querySelectorAll('.filter-btn');
+        const cards = document.querySelectorAll('.pricing-card');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Убираем active у всех кнопок
+                buttons.forEach(btn => btn.classList.remove('active'));
+                // Добавляем active текущей
+                button.classList.add('active');
+
+                const filterType = button.getAttribute('data-type');
+
+                cards.forEach(card => {
+                    if (filterType === 'all') {
+                        card.style.display = 'flex';
+                    } else {
+                        if (card.getAttribute('data-type') === filterType) {
+                            card.style.display = 'flex';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    }
+                });
+            });
+        });
+    });
+</script>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+        <div class="container header__inner">
+            <div class="logo">Вожатка<span> — всё ясно</span></div>
+
+            <nav class="nav" id="nav">
+                <a href="#features" class="nav__link">О вожатстве</a>
+                <a href="#materials" class="nav__link">Материалы</a>
+                <a href="#about" class="nav__link">Лучшее лето</a>
+                <a href="#cta" class="nav__link nav__link--primary">Присоединиться</a>
+            </nav>
+
+            <button class="burger" id="burger" aria-label="Открыть меню">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- HERO -->
+        <section class="hero" id="top">
+            <div class="container hero__inner">
+                <div class="hero__content">
+                    <p class="hero__eyebrow">Для студентов и будущих вожатых</p>
+                    <h1 class="hero__title">
+                        Первый шаг на пути к счастливым детям
+                    </h1>
+                    <p class="hero__subtitle">
+                        Учись, развивайся и дари детям яркое лето вместе со студенческим педагогическим отрядом
+                    </p>
+                    <div class="hero__actions">
+                        <a href="#materials" class="btn btn--primary">Смотреть материалы</a>
+                        <a href="#cta" class="btn btn--ghost">Как вступить в СПО</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- О ВОЖАТСТВЕ -->
+        <section class="section" id="features">
+            <div class="container">
+                <header class="section__header">
+                    <h2 class="section__title">Что такое вожатство?</h2>
+                    <p class="section__subtitle">
+                        Вожатый — это наставник, друг и организатор для детей в летнем лагере.
+                    </p>
+                </header>
+
+                <div class="features-grid">
+                    <article class="feature">
+                        <h3 class="feature__title">Вожатый</h3>
+                        <p class="feature__text">
+                            Отвечает за безопасность, досуг, воспитание и эмоциональное состояние детей в отряде.
+                        </p>
+                    </article>
+
+                    <article class="feature">
+                        <h3 class="feature__title">СПО</h3>
+                        <p class="feature__text">
+                            Студенческий педагогический отряд — сообщество студентов, которые каждое лето работают
+                            вожатыми.
+                        </p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Проведи своё лучшее лето в лагере + Галерея -->
+        <section class="section" id="about">
+            <div class="container">
+                <h2 class="section__title">Проведи своё лучшее лето в лагере</h2>
+                <p class="section__subtitle">Что ты получишь, работая вожатым:</p>
+
+                <ul class="list">
+                    <li>Новый бесценный опыт работы с детьми</li>
+                    <li>Незабываемые эмоции и яркие воспоминания</li>
+                    <li>Много новых друзей и полезных знакомств</li>
+                    <li>Возможность заработать летом</li>
+                    <li>Развитие лидерских и педагогических навыков</li>
+                </ul>
+
+                <!-- Галерея фото -->
+                <div class="gallery">
+                    <h3 style="margin-top: 40px; margin-bottom: 20px;">Галерея лагеря</h3>
+                    <div class="gallery-grid">
+                        {% for img in gallery_images %}
+                        <div class="gallery-item">
+                            <img src="{{ img.image.url }}" alt="{{ img.title }}">
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- УЧЕБНЫЕ МАТЕРИАЛЫ С ФИЛЬТРАЦИЕЙ -->
+        <section class="section" id="materials">
+            <div class="container">
+                <header class="section__header">
+                    <h2 class="section__title">Учебные материалы</h2>
+                    <p class="section__subtitle">Скачивай готовые игры, сценарии, методички и полезные документы</p>
+                </header>
+
+                <!-- Фильтры -->
+                <div class="filters" style="text-align: center; margin-bottom: 30px;">
+                    <button class="filter-btn active" data-type="all">Все материалы</button>
+                    <button class="filter-btn" data-type="games">Игры</button>
+                    <button class="filter-btn" data-type="scenarios">Сценарии</button>
+                    <button class="filter-btn" data-type="theory">Теория и методички</button>
+                </div>
+
+                <div class="pricing-grid" id="materials-grid">
+                    {% for material in materials %}
+                    <article class="pricing-card" data-type="{{ material.material_type }}">
+                        <h3 class="pricing-card__name">{{ material.title }}</h3>
+                        <p class="pricing-card__price">{{ material.get_material_type_display }}</p>
+                        <p style="color: var(--text-muted); font-size: 14px; margin: 8px 0; min-height: 60px;">
+                            {{ material.description|truncatewords:25 }}
+                        </p>
+                        <a href="{{ material.file.url }}" class="btn btn--primary" download>
+                            Скачать файл
+                        </a>
+                    </article>
+                    {% empty %}
+                    <p style="grid-column: 1 / -1; text-align: center; color: var(--text-muted); padding: 40px;">
+                        Пока нет материалов. Добавьте их через панель администратора.
+                    </p>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="section section--accent" id="cta">
+            <div class="container cta">
+                <div class="cta__content">
+                    <h2 class="section__title section__title--invert">СПО «Ясность»</h2>
+                    <p class="section__subtitle section__subtitle--invert">
+                        Хочешь стать вожатым?<br>
+                        Присоединяйся к нашему отряду!
+                    </p>
+                </div>
+
+                <div>
+                    <a href="https://vk.com/spolight" target="_blank" class="btn btn--primary btn--full">
+                        Перейти в группу ВКонтакте
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container footer__inner">
+            <p class="footer__copy">&copy; 2026 Вожатка — портал для вожатых и СПО</p>
+            <a href="#top" class="footer__link">↑ Наверх</a>
+        </div>
+    </footer>
+
+    <script>
+        // Бургер-меню
+        const burger = document.getElementById('burger');
+        const nav = document.getElementById('nav');
+
+        burger.addEventListener('click', () => {
+            burger.classList.toggle('burger--open');
+            nav.classList.toggle('nav--open');
+        });
+    </script>
+
+</body>
+
+</html>
