@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: vozhaty_postgres
+    env_file:
+      - .env.demo
+    environment:
+      POSTGRES_DB: vozhaty_db
+      POSTGRES_USER: vozhaty_user
+      POSTGRES_PASSWORD: vozhaty_password_demo
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: always
+    networks:
+      - vozhaty_network
+
+  app:
+    build: .
+    container_name: vozhaty_app
+    env_file:
+      - .env.demo
+    environment:
+      DATABASE_URL: postgresql://vozhaty_user:vozhaty_password_demo@db:5432/vozhaty_db
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    volumes:
+      - static_volume:/app/staticfiles
+      - media_volume:/app/media
+    restart: always
+    networks:
+      - vozhaty_network
+
+volumes:
+  postgres_data:
+  static_volume:
+  media_volume:
+
+networks:
+  vozhaty_network:
+    driver: bridge
