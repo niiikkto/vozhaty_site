@@ -1,0 +1,36 @@
+# Виртуальное окружение и Git
+.venv
+venv
+.git
+.gitignore
+
+# Кэш Python и временные файлы
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Логи и БД (SQLite)
+*.log
+db.sqlite3
+
+# Секреты и окружение
+.env
+.env.local
+
+# Медиа и статика (они будут создаваться внутри контейнера)
+media/
+staticfiles/
+
+# Файлы IDE и системы
+.vscode
+.idea
+.DS_Store
+
+# Наши скрипты и документация (они не нужны в образе)
+scripts/
+screenshots/
+docs/
+*.md
+Makefile

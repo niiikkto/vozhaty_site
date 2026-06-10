@@ -58,6 +58,27 @@ venv\Scripts\activate    # Windows
 pip install django pillow
 ```
 
+### Через Makefile (рекомендуется)
+```bash
+make setup   # Установка окружения и зависимостей
+make run     # Локальный запуск
+make check   # Проверка линтером
+make format  # Автоформатирование кода
+```
+
+### Через  BAT-файлы
+```bash
+scripts\setup.bat
+scripts\run.bat
+```
+
+### Через Docker
+```bash
+docker compose up --build
+# Проект будет доступен по адресу: http://localhost:8000
+# Остановить: Ctrl+C, затем docker compose down
+```
+
 ### 4. Выполни миграции
 
 ```bash
@@ -107,3 +128,4 @@ vozhaty_site/
 1. Зайди в админ-панель: `/admin/`
 2. Добавь **Материалы** (Material)
 3. Добавь **Фото галереи** (GalleryImage)
+
