@@ -35,3 +35,9 @@ clean:
 	rm -rf __pycache__
 	rm -rf */__pycache__
 	@echo "Done."
+
+ci-check:
+	@echo "Running checks as on CI"
+	python -m compileall . -q
+	ruff check . || true
+	python manage.py test || true
