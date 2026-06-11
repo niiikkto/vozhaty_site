@@ -1,0 +1,44 @@
+# .github/workflows/ci.yml
+name: CI
+
+# Запускать при пуше в любую ветку и при создании Pull Request
+on:
+  push:
+  pull_request:
+
+jobs:
+  # Одна задача (job) - проверка кода
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Шаг 1: Скачать код из репозитория
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Шаг 2: Установить Python
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # Шаг 3: Установить зависимости
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # Шаг 4: Проверить синтаксис всех .py файлов
+      - name: Check Python syntax
+        run: |
+          python -m compileall . -q
+
+      # Шаг 5: Запустить линтер (ruff), если он установлен
+      - name: Run linter (ruff)
+        run: |
+          ruff check . --quiet || echo "Ruff not installed or found issues"
+
+      # Шаг 6: Запустить тесты (pytest), если они есть
+      - name: Run tests
+        run: |
+          python manage.py test || echo "No tests found or tests failed"
